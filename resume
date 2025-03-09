@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Современное Резюме</title>
+    <style>
+        :root {
+            --primary-color: #2a2f4f;
+            --secondary-color: #917fb3;
+            --accent-color: #fde2f3;
+            --text-color: #333;
+            --light-color: #fff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: var(--light-color);
+            padding: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profile-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 40%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s forwards 0.3s;
+        }
+
+        .name {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s forwards 0.5s;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s forwards 0.7s;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 35px;
+            right: 20px;
+            cursor: pointer;
+            background: rgba(200, 200, 200, 0.2);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .theme-switch:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s forwards 0.9s;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background: white;
+            border-radius: 50px;
+            padding: 10px;
+            margin: 30px auto;
+            max-width: fit-content;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 20px;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s forwards 1.1s;
+        }
+
+        .tab {
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .section {
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .experience-item, .education-item, .skill-item, .project-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+        }
+
+        .experience-item:last-child, .education-item:last-child, .skill-item:last-child, .project-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .item-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .company, .school {
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        .date {
+            color: #777;
+            font-style: italic;
+        }
+
+        .description {
+            margin-top: 10px;
+            color: #555;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skill-category {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .category-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+            padding-top: 15px;
+        }
+
+        .project-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        input, textarea {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(145, 127, 179, 0.2);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .language-btn {
+            background: rgba(200, 200, 200, 0.2);
+            color: white;
+            border: none;
+            position: fixed;
+            top: 35px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .download-cv {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .download-cv:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode header {
+            background: #1a1a2e;
+        }
+
+        body.dark-mode .section {
+            background: #1e1e30;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .tabs {
+            background: #1e1e30;
+        }
+
+        body.dark-mode .tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode .skill-tag {
+            background: #2a2f4f;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .project-card {
+            background: #2a2a40;
+        }
+
+        body.dark-mode input, body.dark-mode textarea {
+            background: #2a2a40;
+            border-color: #444;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .experience-item, body.dark-mode .education-item,
+        body.dark-mode .skill-item, body.dark-mode .project-item {
+            border-bottom-color: #444;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 10px;
+            }
+
+            .name {
+                font-size: 2rem;
+            }
+
+            .title {
+                font-size: 1.2rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+                border-radius: 15px;
+            }
+
+            .tab {
+                padding: 8px 15px;
+                margin: 5px;
+            }
+
+            .section {
+                padding: 20px 15px;
+            }
+
+            .item-header {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-switch, .language-switcher {
+                position: relative;
+                top: 0;
+                right: 0;
+                left: 0;
+                margin: 10px;
+                display: inline-flex;
+            }
+
+            .header-actions {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                margin-top: 15px;
+                gap: 10px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .tabs, .theme-switch, .language-switcher, .contact-form {
+                display: none;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                margin-bottom: 15px;
+                box-shadow: none;
+                padding: 15px 0;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .download-cv {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="language-switcher">
+            <button class="language-btn" id="languageToggle">RU/EN</button>
+        </div>
+        <div class="theme-switch" id="themeToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </div>
+        <div class="header-content">
+            <img src="https://i.imgur.com/shHLmcS.jpeg" alt="Ваше фото" class="profile-image" id="profileImage">
+            <h1 class="name" id="name">Иван Иванов</h1>
+            <h2 class="title" id="title">Старший Frontend Разработчик</h2>
+            <div class="social-links">
+                <a href="#" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+                <a href="#" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                </a>
+                <a href="#" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="#" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                    </svg>
+                </a>
+            </div>
+            <a href="#" class="download-cv" id="downloadResume">Скачать резюме</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs" id="tabs">
+            <div class="tab active" data-tab="about">Обо мне</div>
+            <div class="tab" data-tab="experience">Опыт</div>
+            <div class="tab" data-tab="education">Образование</div>
+            <div class="tab" data-tab="skills">Навыки</div>
+            <div class="tab" data-tab="projects">Проекты</div>
+            <div class="tab" data-tab="contact">Контакты</div>
+        </div>
+
+        <div class="content">
+            <!-- About Section -->
+            <section id="about" class="section">
+                <h2 class="section-title" id="aboutTitle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    Обо мне
+                </h2>
+                <p id="aboutText">Я опытный Frontend-разработчик с более чем 5-летним стажем в создании современных и интуитивно понятных веб-приложений. Специализируюсь на JavaScript, React, Vue.js и другими современными фреймворками. Мой подход к работе основан на создании масштабируемых и производительных решений, с особым вниманием к деталям и пользовательскому опыту. Постоянно изучаю новые технологии и методологии для совершенствования своих навыков.</p>
+                
+                <div style="margin-top: 20px;">
+                    <h3 id="contactInfoTitle" style="color: var(--primary-color); margin-bottom: 10px;">Контактная информация</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <span id="emailAddress">ivan.ivanov@example.com</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <span id="phoneNumber">+7 (999) 123-45-67</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span id="location">Москва, Россия</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="experience" class="section" style="display: none;">
+                <h2 class="section-title" id="experienceTitle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    Опыт работы
+                </h2>
+                <div class="experience-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-title exp-title">Старший Frontend-разработчик</h3>
+                            <p class="company exp-company">ИнноТех Солюшнс</p>
+                        </div>
+                        <p class="date exp-date">Январь 2021 - Настоящее время</p>
+                    </div>
+                    <p class="description exp-description">Руководство командой фронтенд-разработчиков в разработке высоконагруженного SaaS-решения. Внедрение методологии Atomic Design и компонентного подхода. Проведение код-ревью, оптимизация производительности, улучшение архитектуры приложения.</p>
+                    <ul class="description exp-responsibilities" style="margin-top: 10px; list-style-position: inside;">
+                        <li>Разработка и внедрение микрофронтенд-архитектуры</li>
+                        <li>Оптимизация производительности приложения, улучшение показателей Core Web Vitals на 35%</li>
+                        <li>Интеграция с RESTful и GraphQL API</li>
+                        <li>Менторство младших разработчиков</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-title exp-title">Frontend-разработчик</h3>
+                            <p class="company exp-company">Диджитал Прогресс</p>
+                        </div>
+                        <p class="date exp-date">Март 2019 - Декабрь 2020</p>
+                    </div>
+                    <p class="description exp-description">Разработка пользовательских интерфейсов для корпоративного портала. Создание адаптивных компонентов, интеграция с бэкенд-системами, оптимизация для мобильных устройств.</p>
+                    <ul class="description exp-responsibilities" style="margin-top: 10px; list-style-position: inside;">
+                        <li>Разработка на Vue.js с использованием Vuex</li>
+                        <li>Внедрение современных практик тестирования (Jest, Cypress)</li>
+                        <li>Внедрение систем аналитики и мониторинга ошибок</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-title exp-title">Junior Web-разработчик</h3>
+                            <p class="company exp-company">WebСтудио</p>
+                        </div>
+                        <p class="date exp-date">Июнь 2017 - Февраль 2019</p>
+                    </div>
+                    <p class="description exp-description">Создание адаптивных веб-сайтов для клиентов различных отраслей. Работа с HTML5, CSS3, JavaScript, jQuery и анимациями. Внедрение интерактивных элементов и оптимизация страниц.</p>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section id="education" class="section" style="display: none;">
+                <h2 class="section-title" id="educationTitle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                    Образование
+                </h2>
+                <div class="education-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-title edu-degree">Магистр компьютерных наук</h3>
+                            <p class="school edu-school">Московский Государственный Технический Университет</p>
+                        </div>
+                        <p class="date edu-date">2015 - 2017</p>
+                    </div>
+                    <p class="description edu-description">Специализация в области разработки программного обеспечения с акцентом на веб-технологии. Дипломная работа: "Разработка высоконагруженных веб-приложений с использованием современных JavaScript-фреймворков".</p>
+                </div>
+                <div class="education-item">
+                    <div class="item-header">
+                        <div>
+                            <h3 class="item-title edu-degree">Бакалавр информационных технологий</h3>
+                            <p class="school edu-school">Санкт-Петербургский Политехнический Университет</p>
+                        </div>
+                        <p class="date edu-date">2011 - 2015</p>
+                    </div>
+                    <p class="description edu-description">Фундаментальное образование в области компьютерных наук, программирования и веб-разработки. Принимал активное участие в студенческих проектах и хакатонах.</p>
+                </div>
+                <div style="margin-top: 30px;">
+                    <h3 id="certificatesTitle" style="color: var(--primary-color); margin-bottom: 15px;">Сертификаты и курсы</h3>
+                    <div class="education-item" style="padding-bottom: 15px; margin-bottom: 15px;">
+                        <div class="item-header">
+                            <div>
+                                <h4 class="item-title cert-title">Advanced React and Redux Masterclass</h4>
+                                <p class="school cert-provider">Udemy</p>
+                            </div>
+                            <p class="date cert-date">2022</p>
+                        </div>
+                    </div>
+                    <div class="education-item" style="padding-bottom: 15px; margin-bottom: 15px;">
+                        <div class="item-header">
+                            <div>
+                                <h4 class="item-title cert-title">Certified JavaScript Developer</h4>
+                                <p class="school cert-provider">JavaScript Institute</p>
+                            </div>
+                            <p class="date cert-date">2020</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div class="item-header">
+                            <div>
+                                <h4 class="item-title cert-title">Frontend Performance Optimization</h4>
+                                <p class="school cert-provider">Frontend Masters</p>
+                            </div>
+                            <p class="date cert-date">2019</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="section" style="display: none;">
+                <h2 class="section-title" id="skillsTitle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="6" y1="3" x2="6" y2="15"></line>
+                        <circle cx="18" cy="6" r="3"></circle>
+                        <circle cx="6" cy="18" r="3"></circle>
+                        <path d="M18 9a9 9 0 0 1-9 9"></path>
+                    </svg>
+                    Профессиональные навыки
+                </h2>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3 class="category-title skills-frontend">Frontend-разработка</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Redux</span>
+                            <span class="skill-tag">Vue.js</span>
+                            <span class="skill-tag">Vuex</span>
+                            <span class="skill-tag">Angular</span>
+                            <span class="skill-tag">HTML5</span>
+                            <span class="skill-tag">CSS3/SCSS</span>
+                            <span class="skill-tag">TailwindCSS</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 class="category-title skills-tools">Инструменты и методологии</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Webpack</span>
+                            <span class="skill-tag">Vite</span>
+                            <span class="skill-tag">Jest</span>
+                            <span class="skill-tag">Testing Library</span>
+                            <span class="skill-tag">Cypress</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">CI/CD</span>
+                            <span class="skill-tag">Agile/Scrum</span>
+                            <span class="skill-tag">Atomic Design</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 class="category-title skills-backend">Backend-опыт</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Express</span>
+                            <span class="skill-tag">GraphQL</span>
+                            <span class="skill-tag">RESTful API</span>
+                            <span class="skill-tag">Firebase</span>
+                            <span class="skill-tag">MongoDB</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 class="category-title skills-other">Дополнительные навыки</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Responsive Design</span>
+                            <span class="skill-tag">Performance Optimization</span>
+                            <span class="skill-tag">UX/UI</span>
+                            <span class="skill-tag">Cross-Browser Compatibility</span>
+                            <span class="skill-tag">SEO</span>
+                            <span class="skill-tag">PWA</span>
+                            <span class="skill-tag">Docker</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <h3 id="languagesTitle" style="color: var(--primary-color); margin-bottom: 15px;">Языки</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                        <div>
+                            <p style="font-weight: 500; margin-bottom: 5px;">Русский</p>
+                            <div style="height: 8px; background: #eee; border-radius: 4px; overflow: hidden;">
+                                <div style="width: 100%; height: 100%; background: var(--primary-color);"></div>
+                            </div>
+                            <p style="text-align: right; font-size: 0.8rem; margin-top: 5px;">Родной</p>
+                        </div>
+                        <div>
+                            <p style="font-weight: 500; margin-bottom: 5px;">Английский</p>
+                            <div style="height: 8px; background: #eee; border-radius: 4px; overflow: hidden;">
+                                <div style="width: 90%; height: 100%; background: var(--primary-color);"></div>
+                            </div>
+                            <p style="text-align: right; font-size: 0.8rem; margin-top: 5px;">C1 - Продвинутый</p>
+                        </div>
+                        <div>
+                            <p style="font-weight: 500; margin-bottom: 5px;">Немецкий</p>
+                            <div style="height: 8px; background: #eee; border-radius: 4px; overflow: hidden;">
+                                <div style="width: 60%; height: 100%; background: var(--primary-color);"></div>
+                            </div>
+                            <p style="text-align: right; font-size: 0.8rem; margin-top: 5px;">B1 - Средний</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="section" style="display: none;">
+                <h2 class="section-title" id="projectsTitle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 19 21 12 17 5 21 12 2"></polygon>
+                    </svg>
+                    Проекты
+                </h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="/api/placeholder/400/200" alt="Проект 1" class="project-image">
+                        <div class="project-content">
+                            <h3 class="project-title">Платформа управления финансами</h3>
+                            <p class="description">Веб-приложение для управления личными финансами с функциями аналитики, учета доходов и расходов, планирования бюджета.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Redux</span>
+                                <span class="project-tag">Node.js</span>
+                                <span class="project-tag">Firebase</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="/api/placeholder/400/200" alt="Проект 2" class="project-image">
+                        <div class="project-content">
+                            <h3 class="project-title">E-commerce решение</h3>
+                            <p class="description">Многофункциональная платформа электронной коммерции с поддержкой многоязычности, различных валют и систем оплаты.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">Vue.js</span>
+                                <span class="project-tag">Vuex</span>
+                                <span class="project-tag">Stripe API</span>
+                                <span class="project-tag">i18n</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="/api/placeholder/400/200" alt="Проект 3" class="project-image">
+                        <div class="project-content">
+                            <h3 class="project-title">Система управления задачами</h3>
+                            <p class="description">Корпоративное приложение для управления проектами и задачами с функциями коллаборации, назначения задач, отслеживания прогресса.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">Angular</span>
+                                <span class="project-tag">TypeScript</span>
+                                <span class="project-tag">GraphQL</span>
+                                <span class="project-tag">MongoDB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="section" style="display: none;">
+                <h2 class="section-title" id="contactTitle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    Связаться со мной
+                </h2>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name" id="nameLabel">Имя</label>
+                        <input type="text" id="name" name="name" placeholder="Ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" id="emailLabel">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Ваш email">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject" id="subjectLabel">Тема</label>
+                        <input type="text" id="subject" name="subject" placeholder="Тема сообщения">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" id="messageLabel">Сообщение</label>
+                        <textarea id="message" name="message" placeholder="Ваше сообщение..."></textarea>
+                    </div>
+                    <button type="submit" id="submitButton">Отправить сообщение</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p id="footerText">© 2025 Иван Иванов. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const tabs = document.querySelectorAll('.tab');
+        const sections = document.querySelectorAll('.section');
+        const themeToggle = document.getElementById('themeToggle');
+        const languageToggle = document.getElementById('languageToggle');
+        const contactForm = document.getElementById('contactForm');
+        const downloadResume = document.getElementById('downloadResume');
+        
+        // Language Data
+        const translations = {
+            ru: {
+                name: "Иван Иванов",
+                title: "Старший Frontend Разработчик",
+                downloadResume: "Скачать резюме",
+                about: "Обо мне",
+                experience: "Опыт",
+                education: "Образование",
+                skills: "Навыки",
+                projects: "Проекты",
+                contact: "Контакты",
+                aboutTitle: "Обо мне",
+                aboutText: "Я опытный Frontend-разработчик с более чем 5-летним стажем в создании современных и интуитивно понятных веб-приложений. Специализируюсь на JavaScript, React, Vue.js и другими современными фреймворками. Мой подход к работе основан на создании масштабируемых и производительных решений, с особым вниманием к деталям и пользовательскому опыту. Постоянно изучаю новые технологии и методологии для совершенствования своих навыков.",
+                contactInfoTitle: "Контактная информация",
+                emailAddress: "ivan.ivanov@example.com",
+                phoneNumber: "+7 (999) 123-45-67",
+                location: "Москва, Россия",
+                experienceTitle: "Опыт работы",
+                educationTitle: "Образование",
+                certificatesTitle: "Сертификаты и курсы",
+                skillsTitle: "Профессиональные навыки",
+                skillsFrontend: "Frontend-разработка",
+                skillsTools: "Инструменты и методологии",
+                skillsBackend: "Backend-опыт",
+                skillsOther: "Дополнительные навыки",
+                languagesTitle: "Языки",
+                projectsTitle: "Проекты",
+                contactTitle: "Связаться со мной",
+                nameLabel: "Имя",
+                emailLabel: "Email",
+                subjectLabel: "Тема",
+                messageLabel: "Сообщение",
+                submitButton: "Отправить сообщение",
+                footerText: "© 2025 Иван Иванов. Все права защищены."
+            },
+            en: {
+                name: "Ivan Ivanov",
+                title: "Senior Frontend Developer",
+                downloadResume: "Download Resume",
+                about: "About",
+                experience: "Experience",
+                education: "Education",
+                skills: "Skills",
+                projects: "Projects",
+                contact: "Contact",
+                aboutTitle: "About Me",
+                aboutText: "I am an experienced Frontend Developer with over 5 years of experience in creating modern and intuitive web applications. I specialize in JavaScript, React, Vue.js and other modern frameworks. My approach to work is based on creating scalable and performant solutions, with special attention to details and user experience. I am constantly learning new technologies and methodologies to improve my skills.",
+                contactInfoTitle: "Contact Information",
+                emailAddress: "ivan.ivanov@example.com",
+                phoneNumber: "+7 (999) 123-45-67",
+                location: "Moscow, Russia",
+                experienceTitle: "Work Experience",
+                educationTitle: "Education",
+                certificatesTitle: "Certificates & Courses",
+                skillsTitle: "Professional Skills",
+                skillsFrontend: "Frontend Development",
+                skillsTools: "Tools & Methodologies",
+                skillsBackend: "Backend Experience",
+                skillsOther: "Additional Skills",
+                languagesTitle: "Languages",
+                projectsTitle: "Projects",
+                contactTitle: "Contact Me",
+                nameLabel: "Name",
+                emailLabel: "Email",
+                subjectLabel: "Subject",
+                messageLabel: "Message",
+                submitButton: "Send Message",
+                footerText: "© 2025 Ivan Ivanov. All rights reserved."
+            }
+        };
+        
+        // Current state
+        let currentLang = 'ru';
+        
+        // Initialize the page
+        function init() {
+            // Show first section by default
+            sections[0].style.display = 'block';
+            
+            // Check if user prefers dark mode
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark-mode');
+                updateThemeIcon();
+            }
+            
+            // Observe sections for animations
+            observeSections();
+            
+            // Add event listeners
+            addEventListeners();
+        }
+        
+        // Observe sections for scroll animations
+        function observeSections() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+        
+        // Add event listeners
+        function addEventListeners() {
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', toggleTheme);
+            
+            // Language toggle
+            languageToggle.addEventListener('click', toggleLanguage);
+            
+            // Contact form submission
+            contactForm.addEventListener('submit', handleFormSubmit);
+            
+            // Resume download
+            downloadResume.addEventListener('click', generatePDF);
+        }
+        
+        // Switch tabs
+        function switchTab(tabId) {
+            // Update active tab
+            tabs.forEach(tab => {
+                if (tab.getAttribute('data-tab') === tabId) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            // Show corresponding section
+            sections.forEach(section => {
+                if (section.id === tabId) {
+                    section.style.display = 'block';
+                    
+                    // Add a small delay before adding the visible class for animation
+                    setTimeout(() => {
+                        section.classList.add('visible');
+                    }, 50);
+                } else {
+                    section.style.display = 'none';
+                    section.classList.remove('visible');
+                }
+            });
+        }
+        
+        // Toggle theme (dark/light mode)
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            updateThemeIcon();
+        }
+        
+        // Update theme icon based on current theme
+        function updateThemeIcon() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            
+            if (isDarkMode) {
+                themeToggle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                `;
+            } else {
+                themeToggle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                `;
+            }
+        }
+        
+        // Toggle language
+        function toggleLanguage() {
+            currentLang = currentLang === 'ru' ? 'en' : 'ru';
+            updateLanguage();
+        }
+        
+        // Update all text based on selected language
+        function updateLanguage() {
+            const lang = translations[currentLang];
+            
+            // Update header content
+            document.getElementById('name').textContent = lang.name;
+            document.getElementById('title').textContent = lang.title;
+            document.getElementById('downloadResume').textContent = lang.downloadResume;
+            
+            // Update tabs
+            tabs.forEach((tab, index) => {
+                const tabId = tab.getAttribute('data-tab');
+                const keys = ['about', 'experience', 'education', 'skills', 'projects', 'contact'];
+                tab.textContent = lang[keys[index]];
+            });
+            
+            // Update section titles and content
+            document.getElementById('aboutTitle').innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                ${lang.aboutTitle}
+            `;
+            document.getElementById('aboutText').textContent = lang.aboutText;
+            document.getElementById('contactInfoTitle').textContent = lang.contactInfoTitle;
+            document.getElementById('emailAddress').textContent = lang.emailAddress;
+            document.getElementById('phoneNumber').textContent = lang.phoneNumber;
+            document.getElementById('location').textContent = lang.location;
+            
+            document.getElementById('experienceTitle').innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+                ${lang.experienceTitle}
+            `;
+            
+            document.getElementById('educationTitle').innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+                ${lang.educationTitle}
+            `;
+            document.getElementById('certificatesTitle').textContent = lang.certificatesTitle;
+            
+            document.getElementById('skillsTitle').innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="6" y1="3" x2="6" y2="15"></line>
+                    <circle cx="18" cy="6" r="3"></circle>
+                    <circle cx="6" cy="18" r="3"></circle>
+                    <path d="M18 9a9 9 0 0 1-9 9"></path>
+                </svg>
+                ${lang.skillsTitle}
+            `;
+            document.querySelector('.skills-frontend').textContent = lang.skillsFrontend;
+            document.querySelector('.skills-tools').textContent = lang.skillsTools;
+            document.querySelector('.skills-backend').textContent = lang.skillsBackend;
+            document.querySelector('.skills-other').textContent = lang.skillsOther;
+            document.getElementById('languagesTitle').textContent = lang.languagesTitle;
+            
+            document.getElementById('projectsTitle').innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 19 21 12 17 5 21 12 2"></polygon>
+                </svg>
+                ${lang.projectsTitle}
+            `;
+            
+            document.getElementById('contactTitle').innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                ${lang.contactTitle}
+            `;
+            
+            // Update form labels
+            document.getElementById('nameLabel').textContent = lang.nameLabel;
+            document.getElementById('emailLabel').textContent = lang.emailLabel;
+            document.getElementById('subjectLabel').textContent = lang.subjectLabel;
+            document.getElementById('messageLabel').textContent = lang.messageLabel;
+            document.getElementById('submitButton').textContent = lang.submitButton;
+            
+            // Update footer
+            document.getElementById('footerText').textContent = lang.footerText;
+        }
+        
+        // Form submission handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Validate form (simple validation)
+            let isValid = true;
+            const requiredFields = ['name', 'email', 'message'];
+            
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field);
+                if (!data[field].trim()) {
+                    input.style.borderColor = 'red';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+            
+            if (!isValid) return;
+            
+            // Simulate form submission (in a real scenario, you would send this to your server)
+            console.log('Form submitted:', data);
+            
+            // Show success message
+            alert(currentLang === 'ru' ? 'Сообщение отправлено!' : 'Message sent!');
+            
+            // Reset form
+            contactForm.reset();
+        }
+        
+        // Generate and download resume as PDF
+        function generatePDF(e) {
+            e.preventDefault();
+            
+            // This is just a placeholder - in a real scenario, you would:
+            // 1. Either generate a PDF using a library like jsPDF
+            // 2. Or redirect to a pre-generated PDF file
+            
+            alert(currentLang === 'ru' ? 'Загрузка резюме...' : 'Downloading resume...');
+            
+            // Simulate download delay
+            setTimeout(() => {
+                alert(currentLang === 'ru' ? 'Резюме загружено!' : 'Resume downloaded!');
+            }, 1000);
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
